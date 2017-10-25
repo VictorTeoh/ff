@@ -1,19 +1,23 @@
 
-  Ball[] balls;
+  Player player;
   
   boolean reactionStarted;
   
   void setup() {
+    //fullScreen();    
     size(600,600);
     background(0);
     noStroke();
+    player = new Player(0,0);
+    /*
     reactionStarted = false;
     balls = new Ball[26];
     for( int i = 0; i < balls.length; i++ ){
       balls[i] = new Ball();
     }
+    */
   }
-
+/*
   void mouseClicked(){
     //only spawns ball if no reaction is already taking place; 
     if( !reactionStarted){ 
@@ -47,8 +51,15 @@
     }
     if((rx)) reactionStarted = false;
   }
+  */
   void draw() {
     clear();
+    fill(204, 102, 0);
+    ellipse( player.getxpos(), player.getypos(), 100.0, 100.0);  
+    player.move();
+   // System.out.println(player.getypos());
+    
+    /*
     for(int i = 0; i < balls.length; i++){
       Ball b = balls[i];
       
@@ -86,4 +97,5 @@
       checkState();
     //checks if reaction is still even happening
     checkReaction();
+    */
   }
