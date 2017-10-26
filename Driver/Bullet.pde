@@ -1,13 +1,11 @@
-class Character{
+class Bullet{
   float speed;
   float angle; // in radians
   float xpos;
   float ypos;
   PShape hbox;//no
-  Character( float xcord, float ycord){
-  /*   speed = spd;
-     angle = ang;
-     */
+  //redo the constructor
+  Bullet( float xcord, float ycord){
      speed = 10;
      xpos = xcord;
      ypos = ycord;
@@ -39,5 +37,10 @@ class Character{
   
   void setangle(float newangle){
      angle = newangle;
+  }
+  
+  void move(){
+   xpos = xpos + speed * cos(angle);
+   ypos = ypos + speed * sin(angle); 
   }
 }
