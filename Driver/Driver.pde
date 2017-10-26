@@ -1,11 +1,13 @@
 
   Player player;
   
-  boolean reactionStarted;
+  int[] keys_to_check = { UP, DOWN, LEFT, RIGHT };//
+  boolean[] keys_down = new boolean[keys_to_check.length];
   
   void setup() {
     //fullScreen();    
     size(600,600);
+    frameRate(60);
     background(0);
     noStroke();
     player = new Player(0,0);
@@ -16,6 +18,20 @@
       balls[i] = new Ball();
     }
     */
+  }
+  
+  void keyPressed(){
+     copeWithKeys(true); // TRUE MEANS KEY PRESSED
+  }
+ 
+  void keyReleased(){
+    copeWithKeys(false); // FALSE MEANS KEY NOT PRESSED
+  }
+  
+  void copeWithKeys(boolean state){
+    for( int i = 0; i < keys_to_check.length; i++){
+      if( keys_to_check[i] == keyCode ){ keys_down[i] = state; }
+    }
   }
 /*
   void mouseClicked(){
@@ -55,7 +71,7 @@
   void draw() {
     clear();
     fill(204, 102, 0);
-    ellipse( player.getxpos(), player.getypos(), 100.0, 100.0);  
+    ellipse( player.getxpos(), player.getypos(), 30.0, 30.0);  
     player.move();
    // System.out.println(player.getypos());
     
