@@ -1,4 +1,6 @@
-class Bullet{
+//try Bullet inheriting Character?
+class Bullet extends Character{
+  /*
   float speed;
   float angle; // in radians
   float xpos;
@@ -37,6 +39,12 @@ class Bullet{
   
   void setangle(float newangle){
      angle = newangle;
+  }
+  */
+  public Bullet(float xpos, float ypos){
+   super(xpos, ypos); 
+   hbox = createShape(ELLIPSE, 0, 0, 10, 10);
+   shape( hbox, getxpos(), getypos());
   }
   
   void move(){

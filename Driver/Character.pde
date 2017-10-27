@@ -40,4 +40,8 @@ class Character{
   void setangle(float newangle){
      angle = newangle;
   }
+  
+  void sethbox(PShape newhbox){
+     hbox = newhbox;
+  }
 }
