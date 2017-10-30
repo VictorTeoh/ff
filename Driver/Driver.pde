@@ -6,6 +6,8 @@
   boolean[] keys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
+  int atkdly = 60;// out of 60 frames what is the lag btwn each shot
+  int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
   //negative at the top  
@@ -18,7 +20,7 @@
     background(0);
     noStroke();
     player = new Player(0,0);//move this later
-    bullets = new Bullet[10];
+    bullets = new Bullet[50];
   }
   
   void keyPressed(){
@@ -49,38 +51,41 @@
   
   
   void drawthethings(){
-    shape( player.gethbox(), player.getxpos(), player.getypos());
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
-        System.out.println(bullets[i].getxpos());
-        //System.out.println(bullets[i].getxpos() == player.getxpos());
+        //System.out.println(bullets[i].getxpos());
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
       }
     }
+    //System.out.println(bullets[0].getxpos());
+    shape( player.gethbox(), player.getxpos(), player.getypos());
+    fill(#0000ff);//idk
   }
   
   void movethethings(){
-    for(i = 0; i < 4; i++){//4 is the movement keys
-      if(keys_down[i]){
-          move_key_pressed = true;
-          break;
-      }
-    }
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
         bullets[i].move();
       }
     }
-  }
-  
-  
-  void pshoot(){
+    for(i = 0; i < 4; i++){//4 is the movement keys
+      if(keys_down[i]){
+        move_key_pressed = true;
+        break;
+      }
+    }
     if(move_key_pressed){
       player.move();//make play function when menu stuff done
       move_key_pressed = false;//slightly inefficient?
     }
-    if(keys_down[5] && bullets[0] == null){
+  }
+  
+  
+  void pshoot(){
+    if(atkdlyctr == atkdly && keys_down[5] && bullets[bullets.length-1] == null){
+      //System.out.println(atkdlyctr);
       player.shoot(); 
+      atkdlyctr = 0;
     } 
   }
   
@@ -89,7 +94,9 @@
     drawthethings();
     deletbullets();
     movethethings();
-    pshoot();
+    pshoot();// need to put a cd on this
+    
+    if(atkdlyctr != atkdly){atkdlyctr++; }
     //bring the conditon for shooting outside of player, same with shoot
       
     //System.out.println(player.getxpos());
