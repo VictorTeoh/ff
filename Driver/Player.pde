@@ -2,7 +2,7 @@ class Player extends Character{
   public Player(float xpos, float ypos){
    super(xpos, ypos); 
    hbox = createShape(ELLIPSE, 0, 0, 10, 10);
-   shape( hbox, getxpos(), getypos());
+  // shape( hbox, xpos, ypos);
   }
 
   void move(){
@@ -27,11 +27,11 @@ class Player extends Character{
   }
   
   void shoot(){
-    System.out.println("QWeqe");
-    Bullet shot = new Bullet(getxpos(), getypos());
+    //System.out.println("QWeqe");
+    Bullet shot = new Bullet(this.getxpos(), this.getypos());
+    shot.sethbox(createShape(ELLIPSE, 0, 0, 100, 100));
+    shot.setspeed(10);
+    shot.angle = 3*PI/2;
     bullets[0] = shot;
-    bullets[0].sethbox(createShape(ELLIPSE, getxpos(), getypos(), 100, 100));
-    bullets[0].setspeed(10);
-    bullets[0].angle = PI/2;
   }
 }
