@@ -46,7 +46,6 @@ class Character{
   }
   
   void move(){
-    
    xpos = xpos + speed * cos(angle);
    ypos = ypos + speed * sin(angle); 
   }

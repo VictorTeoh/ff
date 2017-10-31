@@ -30,7 +30,7 @@ class Player extends Character{
     //System.out.println("QWeqe");
     Bullet shot = new Bullet(this.getxpos(), this.getypos()-5);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));
-    shot.setspeed(0.5);
+    shot.setspeed(10);
     shot.angle = 3*PI/2;
     for(int i = 0; i < bullets.length; i++){
       if(bullets[i] == null){

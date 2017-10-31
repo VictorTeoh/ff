@@ -7,7 +7,7 @@
   boolean[] keys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
-  int atkdly = 4;// out of 60 frames what is the lag btwn each shot
+  int atkdly = 60;// out of 60 frames what is the lag btwn each shot
   int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
@@ -22,7 +22,7 @@
     noStroke();
     player = new Player(0,0);//move this later
     enemy = new Character(width/2,height/4);
-    bullets = new Bullet[1];
+    bullets = new Bullet[200];
   }
   
   void keyPressed(){
@@ -61,19 +61,21 @@
       }
     }
     if(bullets[0] != null){
-     System.out.println(bullets[0].getxpos());
+     System.out.println(bullets[0].getypos());
     }
     shape( player.gethbox(), player.getxpos(), player.getypos());
-    fill(#0000ff);//idk
+    //fill(#0000ff);//idk
   }
   
-  void movethethings(){
+  void movethethings(){ //something is wrong here
     for(i = 0; i < bullets.length; i++){
+      //System.out.println(i);
       if(bullets[i] != null){
-        //System.out.println("!23");
+        //System.out.println(i);
         bullets[i].move();
       }
     }
+    System.out.println("break");
     for(i = 0; i < 4; i++){//4 is the movement keys
       if(keys_down[i]){
         move_key_pressed = true;
