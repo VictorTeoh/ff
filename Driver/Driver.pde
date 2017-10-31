@@ -1,12 +1,13 @@
   //to do proper images later on use loadShape() look it up
   Player player;
+  Character enemy;
   Bullet[] bullets;
   int[] keys_to_check = { UP, DOWN, LEFT, RIGHT, SHIFT, 90, 88 };
   //ascii values of z and x
   boolean[] keys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
-  int atkdly = 60;// out of 60 frames what is the lag btwn each shot
+  int atkdly = 4;// out of 60 frames what is the lag btwn each shot
   int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
@@ -20,7 +21,8 @@
     background(0);
     noStroke();
     player = new Player(0,0);//move this later
-    bullets = new Bullet[50];
+    enemy = new Character(width/2,height/4);
+    bullets = new Bullet[1];
   }
   
   void keyPressed(){
@@ -42,6 +44,7 @@
       if(bullets[i] == null){
          break; 
       }
+      //System.out.println(bullets[i].getxpos());
       if(bullets[i].getypos() < -50.0 || bullets[i].getypos() > height+50.0 ||
       bullets[i].getxpos() < -50.0 || bullets[i].getxpos() > width+50){
         bullets[i] = null;
@@ -57,7 +60,9 @@
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
       }
     }
-    //System.out.println(bullets[0].getxpos());
+    if(bullets[0] != null){
+     System.out.println(bullets[0].getxpos());
+    }
     shape( player.gethbox(), player.getxpos(), player.getypos());
     fill(#0000ff);//idk
   }
@@ -65,6 +70,7 @@
   void movethethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
+        //System.out.println("!23");
         bullets[i].move();
       }
     }
@@ -83,7 +89,6 @@
   
   void pshoot(){
     if(atkdlyctr == atkdly && keys_down[5] && bullets[bullets.length-1] == null){
-      //System.out.println(atkdlyctr);
       player.shoot(); 
       atkdlyctr = 0;
     } 
@@ -95,7 +100,6 @@
     deletbullets();
     movethethings();
     pshoot();// need to put a cd on this
-    
     if(atkdlyctr != atkdly){atkdlyctr++; }
     //bring the conditon for shooting outside of player, same with shoot
       

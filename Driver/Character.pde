@@ -44,4 +44,10 @@ class Character{
   void sethbox(PShape newhbox){
      hbox = newhbox;
   }
+  
+  void move(){
+    
+   xpos = xpos + speed * cos(angle);
+   ypos = ypos + speed * sin(angle); 
+  }
 }

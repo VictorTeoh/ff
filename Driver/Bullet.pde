@@ -6,8 +6,10 @@ class Bullet extends Character{
   // shape( hbox, xpos, ypos);
   }
   
-  void move(){
-   xpos = xpos + speed * cos(angle);
-   ypos = ypos + speed * sin(angle); 
+  void targetplayer(){
+    angle = 0;
   }
+  
+  
+  
 }
