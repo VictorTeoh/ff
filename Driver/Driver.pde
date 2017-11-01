@@ -7,7 +7,7 @@
   boolean[] keys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
-  int atkdly = 60;// out of 60 frames what is the lag btwn each shot
+  int atkdly = 6;// out of 60 frames what is the lag btwn each shot
   int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
@@ -22,7 +22,7 @@
     noStroke();
     player = new Player(0,0);//move this later
     enemy = new Character(width/2,height/4);
-    bullets = new Bullet[200];
+    bullets = new Bullet[5];
   }
   
   void keyPressed(){
@@ -60,22 +60,16 @@
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
       }
     }
-    if(bullets[0] != null){
-     System.out.println(bullets[0].getypos());
-    }
     shape( player.gethbox(), player.getxpos(), player.getypos());
     //fill(#0000ff);//idk
   }
   
-  void movethethings(){ //something is wrong here
+  void movethethings(){ 
     for(i = 0; i < bullets.length; i++){
-      //System.out.println(i);
       if(bullets[i] != null){
-        //System.out.println(i);
         bullets[i].move();
       }
     }
-    System.out.println("break");
     for(i = 0; i < 4; i++){//4 is the movement keys
       if(keys_down[i]){
         move_key_pressed = true;
@@ -101,8 +95,11 @@
     drawthethings();
     deletbullets();
     movethethings();
+    
     pshoot();// need to put a cd on this
-    if(atkdlyctr != atkdly){atkdlyctr++; }
+    if(atkdlyctr != atkdly){
+      atkdlyctr++;
+    }
     //bring the conditon for shooting outside of player, same with shoot
       
     //System.out.println(player.getxpos());
