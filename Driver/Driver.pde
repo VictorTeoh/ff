@@ -5,6 +5,7 @@
   int[] keys_to_check = { UP, DOWN, LEFT, RIGHT, SHIFT, 90, 88 };
   //ascii values of z and x
   boolean[] keys_down = new boolean[keys_to_check.length];
+  boolean[] pkeys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
   int atkdly = 6;// out of 60 frames what is the lag btwn each shot
@@ -20,7 +21,7 @@
     frameRate(60);
     background(0);
     noStroke();
-    player = new Player(0,0);//move this later
+    player = new Player(width/2,3*height/4);//move this later
     enemy = new Character(width/2,height/4);
     bullets = new Bullet[5];
   }
@@ -34,8 +35,14 @@
   }
   
   void copeWithKeys(boolean state){
+    for( int i = 0; i< pkeys_down.length; i++){
+      pkeys_down[i] = false;
+    }
     for( int i = 0; i < keys_to_check.length; i++){
-      if( keys_to_check[i] == keyCode ){ keys_down[i] = state; }
+      if( keys_to_check[i] == keyCode ){
+         keys_down[i] = state; 
+         pkeys_down[i] = state;
+      }
     }
   }
   
