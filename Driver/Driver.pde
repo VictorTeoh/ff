@@ -21,8 +21,8 @@
     frameRate(60);
     background(0);
     noStroke();
-    player = new Player(width/2,3*height/4);//move this later
-    enemy = new Character(width/2,height/4);
+    player = new Player(width/2,3*height/4, 10);//move this later
+    enemy = new Character(width/2,height/4, 10);
     bullets = new Bullet[5];
   }
   

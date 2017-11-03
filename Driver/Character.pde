@@ -4,11 +4,11 @@ class Character{
   float xpos;
   float ypos;
   PShape hbox;//no
-  Character( float xcord, float ycord){
+  Character( float xcord, float ycord, float nspeed){
   /*   speed = spd;
      angle = ang;
      */
-     speed = 10;
+     speed = nspeed;
      xpos = xcord;
      ypos = ycord;
   }
@@ -48,5 +48,9 @@ class Character{
   void move(){
    xpos = xpos + speed * cos(angle);
    ypos = ypos + speed * sin(angle); 
+  }
+  
+  void shoot(){
+    
   }
 }
