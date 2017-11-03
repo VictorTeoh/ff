@@ -33,6 +33,14 @@ class Character{
      return hbox; 
   }
   
+  void setxpos(float newxpos){
+     xpos = newxpos; 
+  }
+  
+  void setypos(float newypos){
+     ypos = newypos; 
+  }
+  
   void setspeed(float newspeed){
      speed = newspeed;
   }

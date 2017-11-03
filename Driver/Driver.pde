@@ -22,6 +22,7 @@
     background(0);
     noStroke();
     player = new Player(width/2,3*height/4, 10);//move this later
+    
     enemy = new Character(width/2,height/4, 10);
     bullets = new Bullet[5];
   }
@@ -85,7 +86,11 @@
     }
     if(move_key_pressed){
       player.move();//make play function when menu stuff done
-      move_key_pressed = false;//slightly inefficient?
+      if(player.getypos() < 5.0){ player.setypos(5.0);}
+      if(player.getypos() > height-5.0){ player.setypos(height-5.0);}
+      if(player.getxpos() < 5.0){ player.setxpos(5.0);}
+      if(player.getxpos() > width-5.0){player.setxpos(width-5.0);}
+      move_key_pressed = false;
     }
   }
   
