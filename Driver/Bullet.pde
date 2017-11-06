@@ -6,6 +6,7 @@ class Bullet extends Character{
   // shape( hbox, xpos, ypos);
   }
   
+  
   void targetplayer(){
     angle = 0;
   }

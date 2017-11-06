@@ -1,7 +1,10 @@
-  //12 pds of work?
+  //15 pds of work?
   //to do proper images later on use loadShape() look it up
+  //optimization everytime something gets removed shift it so then every loop
+  // have to go through null indices
   Player player;
   Character enemy;
+  Character[] Characters;
   Bullet[] bullets;
   int[] keys_to_check = { UP, DOWN, LEFT, RIGHT, SHIFT, 90, 88 };
   //ascii values of z and x
@@ -9,6 +12,7 @@
   boolean[] pkeys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
   int i;
+  int d;
   int atkdly = 6;// out of 60 frames what is the lag btwn each shot
   int atkdlyctr = 0;
   
@@ -22,9 +26,14 @@
     frameRate(60);//note there is already lag at 100 fps pushing the max bullets
     background(0);
     noStroke();
-    player = new Player(width/2,3*height/4, 10);//move this later
+    //move this later when menus are done
+    Characters = new Character[200];
+    player = new Player(width/2,3*height/4, 10);
     enemy = new Character(width/2,height/4, 10);
+    Characters[0] = enemy;
+    enemy.setspeed(0);
     bullets = new Bullet[2000];
+    
   }
   
   void keyPressed(){
@@ -47,12 +56,19 @@
     }
   }
   
-  void deletbullets(){
+  void delethethings(){
     for( int i = 0; i < bullets.length; i++){
       if(bullets[i] == null){}
       else if(bullets[i].getypos() < -50.0 || bullets[i].getypos() > height+50.0 ||
       bullets[i].getxpos() < -50.0 || bullets[i].getxpos() > width+50){
         bullets[i] = null;
+      }
+    }
+    for( int i = 0; i < Characters.length; i++){
+      if(Characters[i] == null){}
+      else if(Characters[i].getypos() < -50.0 || Characters[i].getypos() > height+50.0 ||
+      Characters[i].getxpos() < -50.0 || Characters[i].getxpos() > width+50){
+        Characters[i] = null;
       }
     }
   }
@@ -61,18 +77,29 @@
   void drawthethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
-        //System.out.println(bullets[i].getxpos());
+        fill(#0000ff);
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
       }
     }
+    for(i = 0; i < Characters.length; i++){
+      if(Characters[i] != null){
+        fill(#00ff00);
+        shape( Characters[i].gethbox(), Characters[i].getxpos(), Characters[i].getypos());
+      }
+    }
     shape( player.gethbox(), player.getxpos(), player.getypos());
-    //fill(#0000ff);//idk
+    //fill(#ff0000);//idk
   }
   
   void movethethings(){ 
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
         bullets[i].move();
+      }
+    }
+    for(i = 0; i < Characters.length; i++){
+      if(Characters[i] != null){
+        Characters[i].move();
       }
     }
     for(i = 0; i < 4; i++){//4 is the movement keys
@@ -97,6 +124,20 @@
     }
   }
   
+  void hithethings(){
+    for(i = 0; i < bullets.length; i++){
+      if(bullets[i] != null){
+        for(d = 0; d < Characters.length; d++){
+          if(Characters[d] != null){
+            if(bullets[i].collision(Characters[d])){
+              bullets[i] = null; 
+            }
+          }  
+        }
+      }
+    }
+  }
+  
   //note player can cuck new enemy bullets and might not spawn if there are too many
   void pshoot(){
     if(atkdlyctr == atkdly && keys_down[5]){
@@ -108,8 +149,9 @@
   void draw() {
     clear();
     drawthethings();
-    deletbullets();
+    delethethings();
     movethethings();
+    hithethings();
     pshoot();// need to put a cd on this
     if(atkdlyctr != atkdly){
       atkdlyctr++;
@@ -117,5 +159,5 @@
     //bring the conditon for shooting outside of player, same with shoot
       
     //System.out.println(player.getxpos());
-    //System.out.println(player.getypos());
+    System.out.println(player.getypos());
   }

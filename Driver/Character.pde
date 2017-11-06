@@ -4,6 +4,7 @@ class Character{
   float xpos;
   float ypos;
   PShape hbox;//no
+  float hboxrad;
   Character( float xcord, float ycord, float nspeed){
   /*   speed = spd;
      angle = ang;
@@ -11,6 +12,8 @@ class Character{
      speed = nspeed;
      xpos = xcord;
      ypos = ycord;
+     hboxrad = 25;
+     hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
   }
   
   float getspeed(){
@@ -33,6 +36,10 @@ class Character{
      return hbox; 
   }
   
+  float gethboxrad(){
+     return hboxrad; 
+  }  
+  
   void setxpos(float newxpos){
      xpos = newxpos; 
   }
@@ -53,12 +60,25 @@ class Character{
      hbox = newhbox;
   }
   
+  void sethboxrad(float newhboxrad){
+     hboxrad = newhboxrad;
+  }
+  
   void move(){
-   xpos = xpos + speed * cos(angle);
-   ypos = ypos + speed * sin(angle); 
+     xpos = xpos + speed * cos(angle);
+     ypos = ypos + speed * sin(angle); 
+  }
+  
+  float dist_to_chara(Character other){
+     return sqrt(  sq(other.getxpos() - this.getxpos())  +  sq( other.getypos() - this.getypos() ));
+  }
+  
+  boolean collision(Character other){
+      boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
+      return(statement);
   }
   
   void shoot(){
-    
+    //idk
   }
 }
