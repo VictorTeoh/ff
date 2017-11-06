@@ -1,3 +1,4 @@
+  //12 pds of work?
   //to do proper images later on use loadShape() look it up
   Player player;
   Character enemy;
@@ -23,7 +24,7 @@
     noStroke();
     player = new Player(width/2,3*height/4, 10);//move this later
     enemy = new Character(width/2,height/4, 10);
-    bullets = new Bullet[2];
+    bullets = new Bullet[2000];
   }
   
   void keyPressed(){
@@ -48,11 +49,8 @@
   
   void deletbullets(){
     for( int i = 0; i < bullets.length; i++){
-      if(bullets[i] == null){
-         break; 
-      }
-      //System.out.println(bullets[i].getxpos());
-      if(bullets[i].getypos() < -50.0 || bullets[i].getypos() > height+50.0 ||
+      if(bullets[i] == null){}
+      else if(bullets[i].getypos() < -50.0 || bullets[i].getypos() > height+50.0 ||
       bullets[i].getxpos() < -50.0 || bullets[i].getxpos() > width+50){
         bullets[i] = null;
       }
@@ -99,9 +97,9 @@
     }
   }
   
-  
+  //note player can cuck new enemy bullets and might not spawn if there are too many
   void pshoot(){
-    if(atkdlyctr == atkdly && keys_down[5] && bullets[bullets.length-1] == null){
+    if(atkdlyctr == atkdly && keys_down[5]){
       player.shoot(); 
       atkdlyctr = 0;
     } 
