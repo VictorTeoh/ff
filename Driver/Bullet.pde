@@ -15,8 +15,12 @@ class Bullet extends Character{
      return dmg;
   }
   
-  void targetplayer(){
-    angle = 0;
+  void target(){
+    //for basic testing untill i can finda nice algoor way to organize enemies
+    //homing will be on the first in the array
+    //atan doesnt get every angle desired only those in Q1 and Q4 idk 
+    angle = atan(( Characters[0].getypos() - this.getypos() ) / (Characters[0].getxpos() - this.getxpos()));
+    System.out.println(angle);
   }
   
   //void shoot(angle speed homingb )

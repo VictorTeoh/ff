@@ -1,5 +1,11 @@
 class Player extends Character{  
   float focuspeed = speed/4;
+  //for later
+  int lvl;
+  int xp;
+  int lives;
+  int bombs;
+  
   public Player(float xcord, float ycord, float nspeed){
    super(xcord, ycord, nspeed); 
    hboxrad = 10;
@@ -70,12 +76,13 @@ class Player extends Character{
   
   void shoot(){
     //System.out.println("QWeqe");
-    Bullet shot = new Bullet(this.getxpos(), this.getypos()-5, 30);
+    Bullet shot = new Bullet(this.getxpos()+10, this.getypos()-5, 30);
     //! make this into a constructor)
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
     shot.setspeed(20);
     shot.setangle(3*PI/2);
+    shot.target();
     shot.setdmg(1);
     for(int i = 0; i < bullets.length; i++){
       if(bullets[i] == null){
