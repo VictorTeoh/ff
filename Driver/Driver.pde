@@ -13,7 +13,7 @@
   boolean move_key_pressed = false;
   int i;
   int d;
-  int atkdly = 6;// out of 60 frames what is the lag btwn each shot
+  int atkdly = 15;// out of 60 frames what is the lag btwn each shot
   int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
@@ -30,8 +30,12 @@
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
     enemy = new Character(width/2,height/4, 10);
+ /*   for( i = 0; i< Characters.length; i++){
+       Characters[i] = enemy; 
+    }*/
     Characters[0] = enemy;
     enemy.setspeed(0);
+    enemy.sethealth(10);
     bullets = new Bullet[2000];
     
   }
@@ -87,6 +91,11 @@
         shape( Characters[i].gethbox(), Characters[i].getxpos(), Characters[i].getypos());
       }
     }
+    if(Characters[0] == null){ 
+      Characters[0] = enemy;
+      enemy.setxpos(enemy.getxpos()+1);
+      enemy.sethealth(10);
+    }
     shape( player.gethbox(), player.getxpos(), player.getypos());
     //fill(#ff0000);//idk
   }
@@ -131,6 +140,7 @@
           if(Characters[d] != null){
             if(bullets[i].collision(Characters[d])){
               bullets[i] = null; 
+              if(Characters[d].isdead()){ Characters[d] = null; }
             }
           }  
         }
@@ -159,5 +169,5 @@
     //bring the conditon for shooting outside of player, same with shoot
       
     //System.out.println(player.getxpos());
-    System.out.println(player.getypos());
+    //System.out.println(player.getypos());
   }

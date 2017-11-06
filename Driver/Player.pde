@@ -74,8 +74,9 @@ class Player extends Character{
     //! make this into a constructor)
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
-    shot.setspeed(30);
-    shot.angle = 3*PI/2;
+    shot.setspeed(20);
+    shot.setangle(3*PI/2);
+    shot.setdmg(1);
     for(int i = 0; i < bullets.length; i++){
       if(bullets[i] == null){
         bullets[i] = shot;

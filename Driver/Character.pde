@@ -5,6 +5,9 @@ class Character{
   float ypos;
   PShape hbox;//no
   float hboxrad;
+  float health;
+  float dmg; // Character doesnt use it but player and bullet does xd bad organization
+  //need moar constructors
   Character( float xcord, float ycord, float nspeed){
   /*   speed = spd;
      angle = ang;
@@ -14,6 +17,7 @@ class Character{
      ypos = ycord;
      hboxrad = 25;
      hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
+     dmg = 10;// just for when the player or character runs into one another
   }
   
   float getspeed(){
@@ -40,6 +44,10 @@ class Character{
      return hboxrad; 
   }  
   
+  float gethealth(){
+     return health; 
+  }
+  
   void setxpos(float newxpos){
      xpos = newxpos; 
   }
@@ -64,6 +72,10 @@ class Character{
      hboxrad = newhboxrad;
   }
   
+  void sethealth(float newhealth){
+     health = newhealth;
+  }
+  
   void move(){
      xpos = xpos + speed * cos(angle);
      ypos = ypos + speed * sin(angle); 
@@ -75,10 +87,26 @@ class Character{
   
   boolean collision(Character other){
       boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
+      if(statement){ other.sethealth(other.gethealth() - this.getdmg()); }
       return(statement);
   }
   
+  boolean isdead(){
+      if(health <= 0){ return true;}
+      return false;
+  }
+  
+  
   void shoot(){
     //idk
+  }
+  
+  
+  void setdmg(float newdmg){
+     dmg = newdmg;
+  }
+  
+  float getdmg(){
+     return dmg;
   }
 }
