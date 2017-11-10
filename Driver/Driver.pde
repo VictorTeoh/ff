@@ -1,4 +1,4 @@
-  //15 pds of work?
+  //18 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
   // have to go through null indices
@@ -38,6 +38,22 @@
     enemy.sethealth(10);
     bullets = new Bullet[2000];
     
+  }
+  
+  float findAngle(float y, float x){
+    if(x >= 0 && y >= 0){
+       return atan(y/x); 
+    }
+    if(x >= 0 && y < 0){
+       return atan(y/x) + 2*PI; 
+    }
+    if(x < 0 && y >= 0){
+       return atan(y/x) + PI; 
+    }
+    if(x < 0 && y < 0){
+       return atan(y/x) + PI; 
+    }
+    return 9;
   }
   
   void keyPressed(){
@@ -103,6 +119,9 @@
   void movethethings(){ 
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
+        if(bullets[i].gethoming()){
+          bullets[i].home(Characters[0]);
+        }
         bullets[i].move();
       }
     }
