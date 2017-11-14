@@ -7,11 +7,13 @@ class Character{
   float hboxrad;
   float health;
   float dmg; // Character doesnt use it but player and bullet does xd bad organization
+  //why the fuck does player need dmg  move it to bullet and separate the classes
+  //give Character a bullet array array? 
   //need moar constructors
+  
+  //add hboxrad angle add a new constructor for health remove dmg from character
+  //and move it to bullet
   Character( float xcord, float ycord, float nspeed){
-  /*   speed = spd;
-     angle = ang;
-     */
      speed = nspeed;
      xpos = xcord;
      ypos = ycord;

@@ -10,6 +10,7 @@ class Player extends Character{
    super(xcord, ycord, nspeed); 
    hboxrad = 10;
    hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
+   health = 1;
   // shape( hbox, xpos, ypos);
   }
   
@@ -17,14 +18,15 @@ class Player extends Character{
      speed = focuspeed; 
   }
   
-  void unfocus(){
+  void unfocus(){// a necessary evil i think because i dont want to set a  new focus speed
+  //but it becomes unflexible, make set focus speed function and make it constant not speed/4
      speed = 4*speed; 
   }  
   
   void move(){
+    //Future fix, it feels fine for now but fix contradicting moves
+    //probably can be cleaned up
     //System.out.println("qwe");
-    //change later if it feels bad
-    //if you have contradicting movement don't move
     /*
     if(keys_down[0] && keys_down[1] && keys_down[2] && keys_down[3]){ return; }
     else if(keys_down[2] && keys_down[3] && keys_down[1]){ angle = PI/2; }
@@ -77,7 +79,9 @@ class Player extends Character{
   void shoot(){
     //System.out.println("QWeqe");
     Bullet shot = new Bullet(this.getxpos(), this.getypos() - 10, 30);
-    //! make this into a constructor)
+    //! make this into a constructor with all the stuff here or not? nah you need to
+    //cuz everysingle different bullet will have to look like this
+    //still don't know how to work with weird shaped stuff without overkilling on coverage
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
     shot.setspeed(20);
@@ -85,11 +89,11 @@ class Player extends Character{
     //shot.targetangle(Characters[0]);
     shot.sethoming(true);
     shot.setdmg(1);
-    for(int i = 0; i < bullets.length; i++){
+    for(int i = 0; i < bullets.length; i++){ // move out of shoot and make it a condition
       if(bullets[i] == null){
         bullets[i] = shot;
         break;
       }
-    }
+    }//that sets bullets[i] to the return value of shoot
   }
 }

@@ -1,4 +1,4 @@
-  //18 pds of work?
+  //17 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
   // have to go through null indices
@@ -112,8 +112,13 @@
       enemy.setxpos(enemy.getxpos()+1);
       enemy.sethealth(10);
     }
-    shape( player.gethbox(), player.getxpos(), player.getypos());
-    //fill(#ff0000);//idk
+    if(!player.isdead()){
+      shape( player.gethbox(), player.getxpos(), player.getypos());
+      fill(#ff0000);//idk
+    }  
+    else{
+    ;
+    }
   }
   
   void movethethings(){ 
@@ -169,7 +174,7 @@
   
   //note player can cuck new enemy bullets and might not spawn if there are too many
   void pshoot(){
-    if(atkdlyctr == atkdly && keys_down[5]){
+    if(atkdlyctr == atkdly && keys_down[5]){ // MOVE ATKDLYCTR OUT 
       player.shoot(); 
       atkdlyctr = 0;
     } 
@@ -181,7 +186,11 @@
     delethethings();
     movethethings();
     hithethings();
-    pshoot();// need to put a cd on this
+    //decrementhedelay(); // prob should check only and work on only first in each array for delay
+    //i just have to  maintain that every bullet in a bullet array is supposed to go on the
+    //same frame and from the same thing
+    pshoot();
+    //move to decrementhedelay
     if(atkdlyctr != atkdly){
       atkdlyctr++;
     }
