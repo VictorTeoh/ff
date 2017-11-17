@@ -84,7 +84,7 @@ class Player extends Character{
     //still don't know how to work with weird shaped stuff without overkilling on coverage
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
-    shot.setspeed(20);
+    shot.setspeed(2);
     shot.setangle(3*PI/2);
     //shot.targetangle(Characters[0]);
     shot.sethoming(true);

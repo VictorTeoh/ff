@@ -5,7 +5,7 @@
   Player player;
   Character enemy;
   Character[] Characters;
-  Bullet[] bullets;
+  Bullet[] bullets; //give player their own bullet array
   int[] keys_to_check = { UP, DOWN, LEFT, RIGHT, SHIFT, 90, 88 };
   //ascii values of z and x
   boolean[] keys_down = new boolean[keys_to_check.length];
@@ -182,10 +182,10 @@
   
   void draw() {
     clear();
+    hithethings();
     drawthethings();
     delethethings();
     movethethings();
-    hithethings();
     //decrementhedelay(); // prob should check only and work on only first in each array for delay
     //i just have to  maintain that every bullet in a bullet array is supposed to go on the
     //same frame and from the same thing

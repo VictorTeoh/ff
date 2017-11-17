@@ -7,6 +7,7 @@ class Character{
   float hboxrad;
   float health;
   float dmg; // Character doesnt use it but player and bullet does xd bad organization
+  Bullet [][] arsenal;
   //why the fuck does player need dmg  move it to bullet and separate the classes
   //give Character a bullet array array? 
   //need moar constructors

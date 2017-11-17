@@ -39,18 +39,19 @@ class Bullet extends Character{
   
   
   void home(Character other){
+     float a = targetangle(other);
+     System.out.println(2*PI-abs(this.getangle()-a));
      float c = dist_to_chara(other)/(sqrt( sq(height/2) + sq(width/2))/ 2);//some finnessing to find a good range
      if (c > 1){ c = 1; }
      if (c < 0.80){ c = 0.80; } //limit how hard the thing can curve
-     if(abs(targetangle(other) - angle) < abs(-targetangle(other) + angle - 2*PI)){
-       angle = angle * (c) + targetangle(other) * (1 - c);
+     if(abs(angle - a) < 2*PI*abs(angle - a)){
+       
+       angle = angle * (c) + a * (1 - c);
      }
      else{
        System.out.println("32!");
-       
-     angle = angle * (c) + (targetangle(other)- 2*PI) * (1 - c);
+       angle = angle * (c) + (a - 2*PI) * (1 - c);
      }
-     System.out.println("41");
     
   }
   
