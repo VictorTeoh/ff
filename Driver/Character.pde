@@ -6,7 +6,6 @@ class Character{
   PShape hbox;//no
   float hboxrad;
   float health;
-  float dmg; // Character doesnt use it but player and bullet does xd bad organization
   Bullet [][] arsenal;
   //why the fuck does player need dmg  move it to bullet and separate the classes
   //give Character a bullet array array? 
@@ -20,7 +19,6 @@ class Character{
      ypos = ycord;
      hboxrad = 25;
      hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
-     dmg = 10;// just for when the player or character runs into one another
   }
   
   float getspeed(){
@@ -51,6 +49,10 @@ class Character{
      return health; 
   }
   
+  Bullet[][] getarsenal(){
+     return arsenal; 
+  }
+  
   void setxpos(float newxpos){
      xpos = newxpos; 
   }
@@ -79,6 +81,10 @@ class Character{
      health = newhealth;
   }
   
+  void setarsenal(Bullet[][] newarsenal){
+     arsenal = newarsenal; 
+  }
+  
   void move(){
      xpos = xpos + speed * cos(angle);
      ypos = ypos + speed * sin(angle); 
@@ -90,7 +96,7 @@ class Character{
   
   boolean collision(Character other){
       boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
-      if(statement){ other.sethealth(other.gethealth() - this.getdmg()); }
+      if(statement){ other.sethealth(0); }//changed
       return(statement);
   }
   
@@ -102,14 +108,5 @@ class Character{
   
   void shoot(){
     //idk
-  }
-  
-  
-  void setdmg(float newdmg){
-     dmg = newdmg;
-  }
-  
-  float getdmg(){
-     return dmg;
   }
 }

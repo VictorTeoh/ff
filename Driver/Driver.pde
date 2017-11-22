@@ -13,8 +13,6 @@
   boolean move_key_pressed = false;
   int i;
   int d;
-  int atkdly = 15;// out of 60 frames what is the lag btwn each shot
-  int atkdlyctr = 0;
   
   //current display seems like the higher positive values are at the bottom and
   //negative at the top  
@@ -29,6 +27,14 @@
     //move this later when menus are done
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
+    Bullet shot = new Bullet( 30, 3*PI/2, 1, 15, false);
+    shot.sethboxrad(15);
+    shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
+    Bullet[] onething = new Bullet[1];
+    onething[0] = shot;
+    Bullet[][] allthethings = new Bullet[5][32];
+    allthethings[0][0] = onething[0];
+    player.setarsenal(allthethings);
     enemy = new Character(width/2,height/4, 10);
  /*   for( i = 0; i< Characters.length; i++){
        Characters[i] = enemy; 
@@ -172,11 +178,18 @@
     }
   }
   
-  //note player can cuck new enemy bullets and might not spawn if there are too many
+  void decrementhedelay(){
+    if(!player.getarsenal()[0][0].ready()){
+      player.getarsenal()[0][0].updatectr();
+    } 
+  }
+    
+  
+  //note player can cuck new enemy bullets and might not spawn if there are too many and vice versa
   void pshoot(){
-    if(atkdlyctr == atkdly && keys_down[5]){ // MOVE ATKDLYCTR OUT 
+    if(player.getarsenal()[0][0].ready() && keys_down[5]){ // MOVE ATKDLYCTR OUT 
       player.shoot(); 
-      atkdlyctr = 0;
+      player.getarsenal()[0][0].setatkdlyctr(0);
     } 
   }
   
@@ -186,16 +199,8 @@
     drawthethings();
     delethethings();
     movethethings();
-    //decrementhedelay(); // prob should check only and work on only first in each array for delay
+    decrementhedelay(); // prob should check only and work on only first in each array for delay
     //i just have to  maintain that every bullet in a bullet array is supposed to go on the
     //same frame and from the same thing
     pshoot();
-    //move to decrementhedelay
-    if(atkdlyctr != atkdly){
-      atkdlyctr++;
-    }
-    //bring the conditon for shooting outside of player, same with shoot
-      
-    //System.out.println(player.getxpos());
-    //System.out.println(player.getypos());
   }

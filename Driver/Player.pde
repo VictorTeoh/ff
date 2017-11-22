@@ -77,23 +77,19 @@ class Player extends Character{
   }
   
   void shoot(){
-    //System.out.println("QWeqe");
-    Bullet shot = new Bullet(this.getxpos(), this.getypos() - 10, 30);
+//    System.out.println("QWeqe");
     //! make this into a constructor with all the stuff here or not? nah you need to
     //cuz everysingle different bullet will have to look like this
     //still don't know how to work with weird shaped stuff without overkilling on coverage
-    shot.sethboxrad(15);
-    shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
-    shot.setspeed(2);
-    shot.setangle(3*PI/2);
-    //shot.targetangle(Characters[0]);
-    shot.sethoming(true);
-    shot.setdmg(1);
+    Bullet shot = this.getarsenal()[0][0]; 
+    shot.setxpos(this.getxpos());
+    shot.setypos(this.getypos());
     for(int i = 0; i < bullets.length; i++){ // move out of shoot and make it a condition
       if(bullets[i] == null){
         bullets[i] = shot;
         break;
       }
     }//that sets bullets[i] to the return value of shoot
+    
   }
 }
