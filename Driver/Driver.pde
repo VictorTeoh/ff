@@ -1,4 +1,4 @@
-  //17 pds of work?
+  //20 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
   // have to go through null indices
@@ -27,7 +27,7 @@
     //move this later when menus are done
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
-    Bullet shot = new Bullet( 30, 3*PI/2, 1, 15, false);
+    Bullet shot = new Bullet( 15, 3*PI/2, 1, 3, false);
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
     Bullet[] onething = new Bullet[1];

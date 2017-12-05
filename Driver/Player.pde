@@ -25,17 +25,6 @@ class Player extends Character{
   
   void move(){
     //Future fix, it feels fine for now but fix contradicting moves
-    //probably can be cleaned up
-    //System.out.println("qwe");
-    /*
-    if(keys_down[0] && keys_down[1] && keys_down[2] && keys_down[3]){ return; }
-    else if(keys_down[2] && keys_down[3] && keys_down[1]){ angle = PI/2; }
-    else if(keys_down[2] && keys_down[3] && keys_down[0]){ angle = 3*PI/2; }
-    else if(keys_down[0] && keys_down[1] && keys_down[2]){ angle = PI; }
-    else if(keys_down[0] && keys_down[1] && keys_down[3]){ angle = 0; }
-    else if(keys_down[0] && keys_down[1]){ return;}
-    else if(keys_down[2] && keys_down[3]){ return;}*/
-    //diagonals first with pkeys
     if(keys_down[2] && keys_down[3] && pkeys_down[1]){angle = PI/2; }/*System.outrintln("#@$%")*/
     else if(keys_down[2] && keys_down[3] && pkeys_down[0]){ angle = 3*PI/2;}/* System.o.println("31")*/
     else if(keys_down[0] && keys_down[1] && pkeys_down[2]){ angle = PI; }

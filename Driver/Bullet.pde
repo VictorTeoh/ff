@@ -1,19 +1,15 @@
 //try Bullet inheriting Character?
 //bad idea undo it
-class Bullet{
-  float speed;
-  float angle; // in radians
-  float xpos;
-  float ypos;
-  PShape hbox;//no
-  float hboxrad;
+class Bullet extends Object{
   float dmg;
   boolean homing;
   int atkdly; // out of 60 frames what is the lag btwn each shot
   int atkdlyctr;
   
   public Bullet(){
-     hbox = createShape(ELLIPSE, 0, 0, 10, 10);
+     super();
+     hboxrad = 10;
+     hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
   }
   public Bullet(float setspeed, float ang, float damage, int dly, boolean homes){
      this();
@@ -23,30 +19,6 @@ class Bullet{
      atkdly = dly;
      homing = homes;
     // shape( hbox, xpos, ypos);
-  }  
-   
-  float getspeed(){
-     return speed; 
-  }
-  
-  float getangle(){
-     return angle; 
-  }
-  
-  float getxpos(){
-     return xpos; 
-  }
-  
-  float getypos(){
-     return ypos; 
-  }  
-  
-  PShape gethbox(){
-     return hbox; 
-  }
-  
-  float gethboxrad(){
-     return hboxrad; 
   }  
   
   float getdmg(){
@@ -63,31 +35,6 @@ class Bullet{
   
   int getatkdlyctr(){
      return atkdlyctr;  
-  }
-  
-  
-  void setxpos(float newxpos){
-     xpos = newxpos; 
-  }
-  
-  void setypos(float newypos){
-     ypos = newypos; 
-  }
-  
-  void setspeed(float newspeed){
-     speed = newspeed;
-  }
-  
-  void setangle(float newangle){
-     angle = newangle;
-  }
-  
-  void sethbox(PShape newhbox){
-     hbox = newhbox;
-  }
-  
-  void sethboxrad(float newhboxrad){
-     hboxrad = newhboxrad;
   }
   
   void setdmg(float newdmg){
@@ -119,18 +66,7 @@ class Bullet{
     return false;
   }
   
-  void move(){
-    xpos = xpos + speed * cos(angle);
-    ypos = ypos + speed * sin(angle); 
-  }
-  
-  boolean collision(Character other){
-      boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
-      if(statement){ other.sethealth(other.gethealth() - this.getdmg()); }
-      return(statement);
-  }
-  
-  float targetangle(Character other){
+  float targetangle(Object other){
     //for basic testing untill i can finda nice algoor way to organize enemies
     float ang;
     ang = findAngle(( other.getypos() - this.getypos() ) , (other.getxpos() - this.getxpos()));
@@ -138,7 +74,7 @@ class Bullet{
   }
   
   
-  void home(Character other){
+  void home(Object other){
      float a = targetangle(other);
      System.out.println(2*PI-abs(this.getangle()-a));
      float c = dist_to_chara(other)/(sqrt( sq(height/2) + sq(width/2))/ 2);//some finnessing to find a good range
@@ -151,10 +87,6 @@ class Bullet{
        System.out.println("32!");
        angle = angle * (c) + (a - 2*PI) * (1 - c);
      }
-  }
-  
-  float dist_to_chara(Character other){
-     return sqrt(  sq(other.getxpos() - this.getxpos())  +  sq( other.getypos() - this.getypos() ));
   }
   
   //void shoot(angle speed homingb )
