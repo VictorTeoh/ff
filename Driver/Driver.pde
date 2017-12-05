@@ -164,7 +164,7 @@
   }
   
   //!!!
-  void hithethings(){
+  void collidethethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
         for(d = 0; d < Characters.length; d++){
@@ -175,6 +175,18 @@
               if(Characters[d].isdead()){ Characters[d] = null; }
             }
           }  
+        }
+      }
+    }
+   /* for(i = 0; i < Characters.length; i++){
+      if(Characters[i] != null){*/
+    for(d = 0; d < Characters.length; d++){
+      if(Characters[d] != null){
+        if(player.collision(Characters[d])){//!!!! collision doesnt do damage
+          Characters[d].sethealth(Characters[d].gethealth()-100);
+          if(Characters[d].isdead()){
+            Characters[d] = null; 
+          }
         }
       }
     }
@@ -197,7 +209,7 @@
   
   void draw() {
     clear();
-    hithethings();
+    collidethethings();
     drawthethings();
     delethethings();
     movethethings();
