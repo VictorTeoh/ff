@@ -10,6 +10,8 @@ class Bullet extends Object{
      super();
      hboxrad = 10;
      hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
+     xpos = 0;
+     ypos = 0;
   }
   public Bullet(float setspeed, float ang, float damage, int dly, boolean homes){
      this();
@@ -89,6 +91,16 @@ class Bullet extends Object{
      }
   }
   
+  
   //void shoot(angle speed homingb )
   
+  Bullet clone(){
+     Bullet clone = new Bullet(this.getspeed(), this.getangle(), this.getdmg(),
+                               this.getatkdly(), this.gethoming());
+     clone.sethboxrad(this.gethboxrad());
+     clone.sethbox(this.gethbox());
+     clone.setxpos(this.getxpos());
+     clone.setxpos(this.getypos());
+     return clone;  
+  }    
 }

@@ -27,7 +27,7 @@
     //move this later when menus are done
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
-    Bullet shot = new Bullet( 15, 3*PI/2, 1, 3, false);
+    Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false);
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
     Bullet[] onething = new Bullet[1];
@@ -163,13 +163,15 @@
     }
   }
   
+  //!!!
   void hithethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
         for(d = 0; d < Characters.length; d++){
           if(Characters[d] != null){
-            if(bullets[i].collision(Characters[d])){
-              bullets[i] = null; 
+            if(bullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
+              bullets[i] = null;
+              //!!! future add something a bubble of impact so it doesnt look weird
               if(Characters[d].isdead()){ Characters[d] = null; }
             }
           }  

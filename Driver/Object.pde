@@ -82,4 +82,10 @@ class Object{
       return(statement);
   }
   
+ Object clone(){//idk what to do with this
+    //makes a deep copy
+    Object clone = new Object();
+    return clone;
+  }
+  
 }

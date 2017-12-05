@@ -25,6 +25,7 @@ class Player extends Character{
   
   void move(){
     //Future fix, it feels fine for now but fix contradicting moves
+    //probably want to redo and only have cardinal direction overwrite
     if(keys_down[2] && keys_down[3] && pkeys_down[1]){angle = PI/2; }/*System.outrintln("#@$%")*/
     else if(keys_down[2] && keys_down[3] && pkeys_down[0]){ angle = 3*PI/2;}/* System.o.println("31")*/
     else if(keys_down[0] && keys_down[1] && pkeys_down[2]){ angle = PI; }
@@ -70,9 +71,9 @@ class Player extends Character{
     //! make this into a constructor with all the stuff here or not? nah you need to
     //cuz everysingle different bullet will have to look like this
     //still don't know how to work with weird shaped stuff without overkilling on coverage
-    Bullet shot = this.getarsenal()[0][0]; 
+    Bullet shot = this.getarsenal()[0][0].clone(); 
     shot.setxpos(this.getxpos());
-    shot.setypos(this.getypos());
+    shot.setypos(this.getypos() - 10);
     for(int i = 0; i < bullets.length; i++){ // move out of shoot and make it a condition
       if(bullets[i] == null){
         bullets[i] = shot;
