@@ -5,7 +5,7 @@ class Player extends Character{
   int xp;
   int lives;
   int bombs;
-  
+  //write the get/set methods for these later and give xp to character
   public Player(float xcord, float ycord, float nspeed){
    super(xcord, ycord, nspeed); 
    hboxrad = 10;
@@ -74,7 +74,7 @@ class Player extends Character{
     Bullet shot = this.getarsenal()[0][0].clone(); 
     shot.setxpos(this.getxpos());
     shot.setypos(this.getypos() - 10);
-    for(int i = 0; i < bullets.length; i++){ // move out of shoot and make it a condition
+    for(int i = 0; i < bullets.length; i++){ 
       if(bullets[i] == null){
         bullets[i] = shot;
         break;

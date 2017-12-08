@@ -103,4 +103,10 @@ class Bullet extends Object{
      clone.setxpos(this.getypos());
      return clone;  
   }    
+  
+  boolean collision(Character other){
+      boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
+      if(statement){ other.sethealth(other.gethealth() - this.getdmg()); }//changed
+      return(statement);
+  }
 }

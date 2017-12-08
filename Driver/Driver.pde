@@ -1,4 +1,4 @@
-  //20 pds of work?
+  //22 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
   // have to go through null indices
@@ -42,6 +42,7 @@
     Characters[0] = enemy;
     enemy.setspeed(0);
     enemy.sethealth(10);
+    enemy.setarsenal(allthethings);
     bullets = new Bullet[2000];
     
   }
@@ -183,7 +184,7 @@
     for(d = 0; d < Characters.length; d++){
       if(Characters[d] != null){
         if(player.collision(Characters[d])){//!!!! collision doesnt do damage
-          Characters[d].sethealth(Characters[d].gethealth()-100);
+          Characters[d].sethealth(Characters[d].gethealth() - 25);
           if(Characters[d].isdead()){
             Characters[d] = null; 
           }
@@ -193,19 +194,33 @@
   }
   
   void decrementhedelay(){
-    if(!player.getarsenal()[0][0].ready()){
-      player.getarsenal()[0][0].updatectr();
+    if(!player.ready()){
+      player.updatectr(); //move code to character method
     } 
+    for(i = 0; i < Characters.length; i++){
+       if(Characters[i] != null && !Characters[i].ready()){ 
+         Characters[i].updatectr();
+       }
+    }
   }
     
   
   //note player can cuck new enemy bullets and might not spawn if there are too many and vice versa
   void pshoot(){
-    if(player.getarsenal()[0][0].ready() && keys_down[5]){ // MOVE ATKDLYCTR OUT 
+    if(player.ready() && keys_down[5]){ // MOVE ATKDLYCTR OUT 
       player.shoot(); 
       player.getarsenal()[0][0].setatkdlyctr(0);
     } 
   }
+  
+  void eshoot(){
+    for(i = 0; i < Characters.length; i++){
+       if(Characters[i] != null && Characters[i].ready()){ 
+         Characters[i].shoot();
+       }
+    }
+  }
+    
   
   void draw() {
     clear();
@@ -217,4 +232,5 @@
     //i just have to  maintain that every bullet in a bullet array is supposed to go on the
     //same frame and from the same thing
     pshoot();
+    eshoot();
   }
