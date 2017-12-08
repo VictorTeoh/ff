@@ -1,4 +1,4 @@
-  //22 pds of work?
+  //23 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
   // have to go through null indices
@@ -30,10 +30,9 @@
     Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false);
     shot.sethboxrad(15);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
-    Bullet[] onething = new Bullet[1];
-    onething[0] = shot;
+
     Bullet[][] allthethings = new Bullet[5][32];
-    allthethings[0][0] = onething[0];
+    allthethings[0][0] = shot;
     player.setarsenal(allthethings);
     enemy = new Character(width/2,height/4, 10);
  /*   for( i = 0; i< Characters.length; i++){
@@ -42,7 +41,9 @@
     Characters[0] = enemy;
     enemy.setspeed(0);
     enemy.sethealth(10);
-    enemy.setarsenal(allthethings);
+    Bullet[][] proto = new Bullet [5][32];
+    proto[0][0] = shot.clone();
+    enemy.setarsenal(proto);
     bullets = new Bullet[2000];
     
   }
@@ -167,28 +168,24 @@
   //!!!
   void collidethethings(){
     for(i = 0; i < bullets.length; i++){
-      if(bullets[i] != null){
+      if(bullets[i] != null && bullets[i].geteam() == 1){
         for(d = 0; d < Characters.length; d++){
-          if(Characters[d] != null){
-            if(bullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
+          if(Characters[d] != null && bullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
               bullets[i] = null;
               //!!! future add something a bubble of impact so it doesnt look weird
               if(Characters[d].isdead()){ Characters[d] = null; }
-            }
+            
           }  
         }
       }
     }
-   /* for(i = 0; i < Characters.length; i++){
-      if(Characters[i] != null){*/
     for(d = 0; d < Characters.length; d++){
-      if(Characters[d] != null){
-        if(player.collision(Characters[d])){//!!!! collision doesnt do damage
+      if(Characters[d] != null && player.collision(Characters[d])){//!!!! collision doesnt do damage
           Characters[d].sethealth(Characters[d].gethealth() - 25);
           if(Characters[d].isdead()){
             Characters[d] = null; 
           }
-        }
+        
       }
     }
   }

@@ -74,6 +74,7 @@ class Player extends Character{
     Bullet shot = this.getarsenal()[0][0].clone(); 
     shot.setxpos(this.getxpos());
     shot.setypos(this.getypos() - 10);
+    shot.seteam(1);
     for(int i = 0; i < bullets.length; i++){ 
       if(bullets[i] == null){
         bullets[i] = shot;

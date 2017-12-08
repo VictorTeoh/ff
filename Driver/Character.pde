@@ -49,9 +49,10 @@ class Character extends Object{
        for(int f = 0; f < bullets.length; f++){ 
           if(bullets[f] == null){
             Bullet shot = arsenal[lvl][i].clone();
-            bullets[f] = shot;
             shot.setxpos(this.getxpos()); 
             shot.setypos(this.getypos() - 10);
+            shot.seteam(0);
+            bullets[f] = shot;
             break;
             }
        }
