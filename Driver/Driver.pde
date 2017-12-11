@@ -5,9 +5,10 @@
   Player player;
   Character enemy;
   Character[] Characters;
-  Bullet[] bullets; //give player their own bullet array
+  Bullet[] bullets; 
+  Bullet[] pbullets;
   int[] keys_to_check = { UP, DOWN, LEFT, RIGHT, SHIFT, 90, 88 };
-  //ascii values of z and x
+  //ascii values of z and x respectively
   boolean[] keys_down = new boolean[keys_to_check.length];
   boolean[] pkeys_down = new boolean[keys_to_check.length];
   boolean move_key_pressed = false;
@@ -19,7 +20,7 @@
   void setup() {
     //fullScreen();    //0-1370 domain ~ 0-875 range
     size(600,600);
-    //surface.setResizable(true);
+    //surface.setResizable(true); hurdur wt fare u dong
     //surface.setSize(width, height);
     frameRate(60);//note there is already lag at 100 fps pushing the max bullets
     background(0);
@@ -41,10 +42,15 @@
     Characters[0] = enemy;
     enemy.setspeed(0);
     enemy.sethealth(10);
+    player.sethealth(1);
     Bullet[][] proto = new Bullet [5][32];
     proto[0][0] = shot.clone();
+    proto[0][0].setangle(PI/2);
+    proto[0][0].setatkdly(40);
+    proto[0][0].setspeed(6);
     enemy.setarsenal(proto);
     bullets = new Bullet[2000];
+    pbullets = new Bullet[300];
     
   }
   
@@ -105,13 +111,19 @@
   void drawthethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
-        fill(#0000ff);
+        fill(#ff0000);
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
+      }
+    }
+    for(i = 0; i < pbullets.length; i++){
+      if(pbullets[i] != null){
+        fill(#00ff00);
+        shape( pbullets[i].gethbox(), pbullets[i].getxpos(), pbullets[i].getypos());
       }
     }
     for(i = 0; i < Characters.length; i++){
       if(Characters[i] != null){
-        fill(#00ff00);
+        fill(#ff0000);
         shape( Characters[i].gethbox(), Characters[i].getxpos(), Characters[i].getypos());
       }
     }
@@ -132,10 +144,15 @@
   void movethethings(){ 
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
-        if(bullets[i].gethoming()){
-          bullets[i].home(Characters[0]);
-        }
         bullets[i].move();
+      }
+    }
+    for(i = 0; i < pbullets.length; i++){
+      if(pbullets[i] != null){
+        if(pbullets[i].gethoming()){
+          pbullets[i].home(Characters[0]);
+        }
+        pbullets[i].move();
       }
     }
     for(i = 0; i < Characters.length; i++){
@@ -167,11 +184,11 @@
   
   //!!!
   void collidethethings(){
-    for(i = 0; i < bullets.length; i++){
-      if(bullets[i] != null && bullets[i].geteam() == 1){
+    for(i = 0; i < pbullets.length; i++){
+      if(pbullets[i] != null){
         for(d = 0; d < Characters.length; d++){
-          if(Characters[d] != null && bullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
-              bullets[i] = null;
+          if(Characters[d] != null && pbullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
+              pbullets[i] = null;
               //!!! future add something a bubble of impact so it doesnt look weird
               if(Characters[d].isdead()){ Characters[d] = null; }
             
@@ -185,7 +202,12 @@
           if(Characters[d].isdead()){
             Characters[d] = null; 
           }
-        
+      }
+    }
+    for(i = 0; i < bullets.length; i++){
+      //state invincible add `
+      if(player != null && bullets[i] != null && bullets[i].collision(player)){
+         player.sethealth(0); 
       }
     }
   }
@@ -195,7 +217,7 @@
       player.updatectr(); //move code to character method
     } 
     for(i = 0; i < Characters.length; i++){
-       if(Characters[i] != null && !Characters[i].ready()){ 
+       if(Characters[i] != null && !Characters[i].ready()){
          Characters[i].updatectr();
        }
     }
@@ -206,7 +228,6 @@
   void pshoot(){
     if(player.ready() && keys_down[5]){ // MOVE ATKDLYCTR OUT 
       player.shoot(); 
-      player.getarsenal()[0][0].setatkdlyctr(0);
     } 
   }
   
@@ -230,4 +251,7 @@
     //same frame and from the same thing
     pshoot();
     eshoot();
+    if(pkeys_down[6] == true){
+       setup(); 
+    }
   }

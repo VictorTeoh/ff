@@ -5,7 +5,7 @@ class Bullet extends Object{
   boolean homing;
   int atkdly; // out of 60 frames what is the lag btwn each shot
   int atkdlyctr;
-  int team; // 0 for enemies' 1 for player's
+//  int team; // 0 for enemies' 1 for player's
   
   public Bullet(){
      super();
@@ -40,9 +40,9 @@ class Bullet extends Object{
      return atkdlyctr;  
   }
   
-  int geteam(){
+ /* int geteam(){
      return team; 
-  }
+  }*/
   
   void setdmg(float newdmg){
      dmg = newdmg;
@@ -60,9 +60,9 @@ class Bullet extends Object{
      atkdlyctr = natkdlyctr;  
   }
   
-  void seteam(int nteam){
+ /* void seteam(int nteam){
      team = nteam; 
-  }
+  }*/
   
   void updatectr(){
     if(atkdlyctr < atkdly){

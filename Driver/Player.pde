@@ -71,16 +71,15 @@ class Player extends Character{
     //! make this into a constructor with all the stuff here or not? nah you need to
     //cuz everysingle different bullet will have to look like this
     //still don't know how to work with weird shaped stuff without overkilling on coverage
-    Bullet shot = this.getarsenal()[0][0].clone(); 
+    Bullet shot = arsenal[lvl][0].clone(); 
     shot.setxpos(this.getxpos());
     shot.setypos(this.getypos() - 10);
-    shot.seteam(1);
-    for(int i = 0; i < bullets.length; i++){ 
-      if(bullets[i] == null){
-        bullets[i] = shot;
+    for(int i = 0; i < pbullets.length; i++){ 
+      if(pbullets[i] == null){
+        pbullets[i] = shot;
         break;
       }
     }//that sets bullets[i] to the return value of shoot
-    
+    arsenal[lvl][0].setatkdlyctr(0);
   }
 }
