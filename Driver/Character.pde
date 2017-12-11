@@ -45,16 +45,22 @@ class Character extends Object{
   
   
   void shoot(){
+    float r;
+    r = random(-PI, PI);
     for(int i = 0; arsenal[lvl][i] != null && i < arsenal[lvl].length; i++){
        for(int f = 0; f < bullets.length; f++){ 
           if(bullets[f] == null){
             Bullet shot = arsenal[lvl][i].clone();
-            shot.setxpos(this.getxpos()); 
-            shot.setypos(this.getypos() + 10);
+            shot.setxpos(this.getxpos() + r*15/PI); 
+            shot.setypos(this.getypos() + r*15/PI);
+            shot.setangle(random(2*PI));
+            shot.setspeed(random(3, 8));
             bullets[f] = shot;
-            arsenal[lvl][0].setatkdlyctr(0);
-            break;
+            if(i == 0){
+              arsenal[lvl][i].setatkdlyctr(0);
             }
+            break;
+          }
        }
     }
   }

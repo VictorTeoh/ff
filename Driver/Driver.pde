@@ -29,8 +29,8 @@
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
     Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false);
-    shot.sethboxrad(15);
-    shot.sethbox(createShape(ELLIPSE, 0, 0, 15, 15));//keep as the same as hbox rad
+    shot.sethboxrad(10);
+    shot.sethbox(createShape(ELLIPSE, 0, 0, 10, 10));//keep as the same as hbox rad
 
     Bullet[][] allthethings = new Bullet[5][32];
     allthethings[0][0] = shot;
@@ -46,8 +46,9 @@
     Bullet[][] proto = new Bullet [5][32];
     proto[0][0] = shot.clone();
     proto[0][0].setangle(PI/2);
-    proto[0][0].setatkdly(40);
+    proto[0][0].setatkdly(1);
     proto[0][0].setspeed(6);
+    proto[0][1] = proto[0][0].clone();
     enemy.setarsenal(proto);
     bullets = new Bullet[2000];
     pbullets = new Bullet[300];

@@ -8,7 +8,7 @@ class Player extends Character{
   //write the get/set methods for these later and give xp to character
   public Player(float xcord, float ycord, float nspeed){
    super(xcord, ycord, nspeed); 
-   hboxrad = 10;
+   hboxrad = 5;
    hbox = createShape(ELLIPSE, 0, 0, hboxrad, hboxrad);
    health = 1;
   // shape( hbox, xpos, ypos);
