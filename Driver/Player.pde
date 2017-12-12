@@ -67,7 +67,6 @@ class Player extends Character{
   }
   
   void shoot(){
-//    System.out.println("QWeqe");
     //! make this into a constructor with all the stuff here or not? nah you need to
     //cuz everysingle different bullet will have to look like this
     //still don't know how to work with weird shaped stuff without overkilling on coverage

@@ -1,7 +1,7 @@
-  //23 pds of work?
+  //24 pds of work?
   //to do proper images later on use loadShape() look it up
   //optimization everytime something gets removed shift it so then every loop
-  // have to go through null indices
+  //get basic assets for player shot and player because it is really distracting right now
   Player player;
   Character enemy;
   Character[] Characters;
@@ -28,7 +28,8 @@
     //move this later when menus are done
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
-    Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false);
+    //System.out.println(player.getxpos());
+    Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false, false);
     shot.sethboxrad(10);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 10, 10));//keep as the same as hbox rad
 
@@ -36,19 +37,25 @@
     allthethings[0][0] = shot;
     player.setarsenal(allthethings);
     enemy = new Character(width/2,height/4, 10);
- /*   for( i = 0; i< Characters.length; i++){
-       Characters[i] = enemy; 
-    }*/
     Characters[0] = enemy;
     enemy.setspeed(0);
-    enemy.sethealth(10);
+    enemy.sethealth(25);
     player.sethealth(1);
     Bullet[][] proto = new Bullet [5][32];
     proto[0][0] = shot.clone();
+    proto[0][0].nspell1_0();
+    System.out.println(proto[0][0].getdirected());
+    /*
     proto[0][0].setangle(PI/2);
     proto[0][0].setatkdly(1);
     proto[0][0].setspeed(6);
-    proto[0][1] = proto[0][0].clone();
+    shot.setxpos(this.getxpos() + r*15/PI); 
+    shot.setypos(this.getypos() + r*15/PI);
+    shot.setangle(random(2*PI)); 
+    shot.setspeed(random(3, 8));
+    */
+   // proto[0][1] = proto[0][0].clone();
+    //proto[0][1].nspell1_1();
     enemy.setarsenal(proto);
     bullets = new Bullet[2000];
     pbullets = new Bullet[300];
@@ -129,9 +136,11 @@
       }
     }
     if(Characters[0] == null){ 
+      /*
       Characters[0] = enemy;
       enemy.setxpos(enemy.getxpos()+1);
       enemy.sethealth(10);
+      */
     }
     if(!player.isdead()){
       shape( player.gethbox(), player.getxpos(), player.getypos());
@@ -190,6 +199,7 @@
         for(d = 0; d < Characters.length; d++){
           if(Characters[d] != null && pbullets[i].collision(Characters[d])){//!!!! collision doesnt do damage
               pbullets[i] = null;
+              System.out.println(Characters[d].gethealth());
               //!!! future add something a bubble of impact so it doesnt look weird
               if(Characters[d].isdead()){ Characters[d] = null; }
             

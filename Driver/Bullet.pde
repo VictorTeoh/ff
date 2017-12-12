@@ -5,7 +5,7 @@ class Bullet extends Object{
   boolean homing;
   int atkdly; // out of 60 frames what is the lag btwn each shot
   int atkdlyctr;
-//  int team; // 0 for enemies' 1 for player's
+  boolean directed;
   
   public Bullet(){
      super();
@@ -14,13 +14,14 @@ class Bullet extends Object{
      xpos = 0;
      ypos = 0;
   }
-  public Bullet(float setspeed, float ang, float damage, int dly, boolean homes){
+  public Bullet(float setspeed, float ang, float damage, int dly, boolean homes, boolean direct){
      this();
      speed = setspeed;
      angle = ang;
      dmg = damage;
      atkdly = dly;
      homing = homes;
+     directed = direct;
     // shape( hbox, xpos, ypos);
   }  
   
@@ -40,9 +41,9 @@ class Bullet extends Object{
      return atkdlyctr;  
   }
   
- /* int geteam(){
-     return team; 
-  }*/
+  boolean getdirected(){
+     return directed; 
+  }
   
   void setdmg(float newdmg){
      dmg = newdmg;
@@ -60,9 +61,13 @@ class Bullet extends Object{
      atkdlyctr = natkdlyctr;  
   }
   
- /* void seteam(int nteam){
-     team = nteam; 
-  }*/
+  void setdirected(boolean ndirected){
+     directed = ndirected; 
+  }
+  
+  void addangle(float ang){
+     angle += ang;
+  }
   
   void updatectr(){
     if(atkdlyctr < atkdly){
@@ -81,11 +86,13 @@ class Bullet extends Object{
     //for basic testing untill i can finda nice algoor way to organize enemies
     float ang;
     ang = findAngle(( other.getypos() - this.getypos() ) , (other.getxpos() - this.getxpos()));
+    //System.out.println(ang);
     return ang;
   }
   
   
   void home(Object other){
+     //a horrible quality function for homing
      float a = targetangle(other);
      System.out.println(2*PI-abs(this.getangle()-a));
      float c = dist_to_chara(other)/(sqrt( sq(height/2) + sq(width/2))/ 2);//some finnessing to find a good range
@@ -105,7 +112,7 @@ class Bullet extends Object{
   
   Bullet clone(){
      Bullet clone = new Bullet(this.getspeed(), this.getangle(), this.getdmg(),
-                               this.getatkdly(), this.gethoming());
+                               this.getatkdly(), this.gethoming(), this.getdirected());
      clone.sethboxrad(this.gethboxrad());
      clone.sethbox(this.gethbox());
      clone.setxpos(this.getxpos());
@@ -117,5 +124,19 @@ class Bullet extends Object{
       boolean statement = ((this.gethboxrad() + other.gethboxrad())/2) >= dist_to_chara(other);
       if(statement){ other.sethealth(other.gethealth() - this.getdmg()); }//changed
       return(statement);
+  }
+  
+  void nspell1_0(){
+      this.setangle(-PI/18);
+      this.setdirected(true);
+      this.setatkdly(10);
+      this.setspeed(2);
+  }
+  
+  void nspell1_1(){
+      this.setangle( PI/18);
+      this.setdirected(true);
+      this.setatkdly(2);
+      this.setspeed(5);
   }
 }
