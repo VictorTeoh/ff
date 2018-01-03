@@ -1,6 +1,6 @@
-  //24 pds of work?
+  //26 pds of work?
   //to do proper images later on use loadShape() look it up
-  //optimization everytime something gets removed shift it so then every loop
+  //Note to self the first bullet in a bullet array determines the fire rate
   //get basic assets for player shot and player because it is really distracting right now
   Player player;
   Character enemy;
@@ -29,22 +29,22 @@
     Characters = new Character[200];
     player = new Player(width/2,3*height/4, 10);
     //System.out.println(player.getxpos());
-    Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false, false);
+    Bullet shot = new Bullet( 30, 3*PI/2, 1, 6, false, false, 0);
     shot.sethboxrad(10);
     shot.sethbox(createShape(ELLIPSE, 0, 0, 10, 10));//keep as the same as hbox rad
 
-    Bullet[][] allthethings = new Bullet[5][32];
-    allthethings[0][0] = shot;
+    Bullet[][][] allthethings = new Bullet[5][1][32];
+    allthethings[0][0][0] = shot;
     player.setarsenal(allthethings);
     enemy = new Character(width/2,height/4, 10);
     Characters[0] = enemy;
     enemy.setspeed(0);
     enemy.sethealth(25);
     player.sethealth(1);
-    Bullet[][] proto = new Bullet [5][32];
-    proto[0][0] = shot.clone();
-    proto[0][0].nspell1_0();
-    System.out.println(proto[0][0].getdirected());
+    Bullet[][][] proto = new Bullet [5][5][32];
+    proto[0][0][0] = shot.clone();
+    proto[0][0][0].nspell1_0_0_0();
+    //System.out.println(proto[0][0].getdirected());
     /*
     proto[0][0].setangle(PI/2);
     proto[0][0].setatkdly(1);
@@ -54,8 +54,13 @@
     shot.setangle(random(2*PI)); 
     shot.setspeed(random(3, 8));
     */
-   // proto[0][1] = proto[0][0].clone();
-    //proto[0][1].nspell1_1();
+    proto[0][0][1] = proto[0][0][0].clone();
+    proto[0][0][1].nspell1_0_0_1();
+    proto[0][1][0] = proto[0][0][0].clone();
+    proto[0][1][0].nspell1_0_1_0();
+    proto[0][1][1] = proto[0][0][0].clone();
+    proto[0][1][1].nspell1_0_1_1();
+    //System.out.println(proto[0][0].getatkdly());
     enemy.setarsenal(proto);
     bullets = new Bullet[2000];
     pbullets = new Bullet[300];
@@ -119,20 +124,20 @@
   void drawthethings(){
     for(i = 0; i < bullets.length; i++){
       if(bullets[i] != null){
-        fill(#ff0000);
         shape( bullets[i].gethbox(), bullets[i].getxpos(), bullets[i].getypos());
+        fill(#ff0000);
       }
     }
     for(i = 0; i < pbullets.length; i++){
       if(pbullets[i] != null){
-        fill(#00ff00);
         shape( pbullets[i].gethbox(), pbullets[i].getxpos(), pbullets[i].getypos());
+        fill(#00ff00);
       }
     }
     for(i = 0; i < Characters.length; i++){
       if(Characters[i] != null){
-        fill(#ff0000);
         shape( Characters[i].gethbox(), Characters[i].getxpos(), Characters[i].getypos());
+        fill(#ff0000);
       }
     }
     if(Characters[0] == null){ 
@@ -224,11 +229,11 @@
   }
   
   void decrementhedelay(){
-    if(!player.ready()){
+    if(!player.ready(0)){
       player.updatectr(); //move code to character method
     } 
     for(i = 0; i < Characters.length; i++){
-       if(Characters[i] != null && !Characters[i].ready()){
+       if(Characters[i] != null){
          Characters[i].updatectr();
        }
     }
@@ -237,14 +242,14 @@
   
   //note player can cuck new enemy bullets and might not spawn if there are too many and vice versa
   void pshoot(){
-    if(player.ready() && keys_down[5]){ // MOVE ATKDLYCTR OUT 
+    if(player.ready(0) && keys_down[5]){ // MOVE ATKDLYCTR OUT 
       player.shoot(); 
     } 
   }
   
   void eshoot(){
     for(i = 0; i < Characters.length; i++){
-       if(Characters[i] != null && Characters[i].ready()){ 
+       if(Characters[i] != null){ 
          Characters[i].shoot();
        }
     }

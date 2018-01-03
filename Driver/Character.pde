@@ -1,6 +1,6 @@
 class Character extends Object{
   float health;
-  Bullet [][] arsenal;
+  Bullet [][][] arsenal; // lvl volley bullet
   int lvl;
   //why the fuck does player need dmg  move it to bullet and separate the classes
   //give Character a bullet array array? 
@@ -22,7 +22,7 @@ class Character extends Object{
      return health; 
   }
   
-  Bullet[][] getarsenal(){
+  Bullet[][][] getarsenal(){
      return arsenal; 
   }
   
@@ -34,7 +34,7 @@ class Character extends Object{
      health = newhealth;
   }
   
-  void setarsenal(Bullet[][] newarsenal){
+  void setarsenal(Bullet[][][] newarsenal){
      arsenal = newarsenal; 
   }
   
@@ -47,31 +47,42 @@ class Character extends Object{
   void shoot(){
 /*    float r;
     r = random(-PI, PI);*/
-    for(int i = 0; arsenal[lvl][i] != null && i < arsenal[lvl].length; i++){
-       for(int f = 0; f < bullets.length; f++){ 
-          if(bullets[f] == null){
-            Bullet shot = arsenal[lvl][i].clone();
-            shot.setxpos(this.getxpos()); 
-            shot.setypos(this.getypos());
-            if(shot.getdirected() == true){
-               shot.addangle(shot.targetangle(player));
-            }
-            bullets[f] = shot;
-            if(i == 0){
-              arsenal[lvl][i].setatkdlyctr(0);
-            }
-            break;
-          }
-       }
+    for(int v = 0; arsenal[lvl][v] != null ; v++){
+      if(arsenal[lvl][v][0] != null && arsenal[lvl][v][0].ready()){
+        for(int i = 0; arsenal[lvl][v][i] != null && i < arsenal[lvl].length; i++){
+           for(int f = 0; f < bullets.length; f++){ 
+              if(bullets[f] == null){
+                Bullet shot = arsenal[lvl][v][i].clone();
+                shot.setxpos(this.getxpos()); 
+                shot.setypos(this.getypos());
+                if(shot.getdirected() == true){
+                   shot.addangle(shot.targetangle(player));
+                }
+                bullets[f] = shot;
+                if(i == 0){
+                  arsenal[lvl][v][i].setatkdlyctr(0);
+                }
+                break;
+              }
+           }
+        }
+      }
     }
   }
   
-  boolean ready(){
-     return arsenal[lvl][0].ready();
+  boolean ready(int v){//v is volley
+     return arsenal[lvl][v][0].ready();
   }
   
-  void updatectr(){
-     arsenal[lvl][0].updatectr(); 
+  void updatectr(){/*
+    if(arsenal[lvl][1] == null){
+      System.out.println("wer"); 
+    }
+    for(int v = 0; !(arsenal[lvl][v][0] == null); v++){
+       System.out.println(v);
+      arsenal[lvl][v][0].updatectr(); 
+    }
+    */
   }
   
   boolean collision(Character other){

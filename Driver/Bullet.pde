@@ -2,10 +2,11 @@
 //bad idea undo it
 class Bullet extends Object{
   float dmg;
-  boolean homing;
+  boolean homing; //change to float like randomdir
   int atkdly; // out of 60 frames what is the lag btwn each shot
   int atkdlyctr;
-  boolean directed;
+  boolean directed; //ensures that at spawn is aimed at 
+  float randomdir; //at spawn randomly adjust angle by this much in either direction
   
   public Bullet(){
      super();
@@ -14,7 +15,7 @@ class Bullet extends Object{
      xpos = 0;
      ypos = 0;
   }
-  public Bullet(float setspeed, float ang, float damage, int dly, boolean homes, boolean direct){
+  public Bullet(float setspeed, float ang, float damage, int dly, boolean homes, boolean direct, float rndir){
      this();
      speed = setspeed;
      angle = ang;
@@ -22,6 +23,7 @@ class Bullet extends Object{
      atkdly = dly;
      homing = homes;
      directed = direct;
+     randomdir = rndir;
     // shape( hbox, xpos, ypos);
   }  
   
@@ -45,6 +47,10 @@ class Bullet extends Object{
      return directed; 
   }
   
+  float getrndir(){
+     return randomdir; 
+  }
+  
   void setdmg(float newdmg){
      dmg = newdmg;
   }
@@ -59,6 +65,10 @@ class Bullet extends Object{
   
   void setatkdlyctr(int natkdlyctr){
      atkdlyctr = natkdlyctr;  
+  }
+  
+  void setrndir(float nrndir){
+     randomdir = nrndir;
   }
   
   void setdirected(boolean ndirected){
@@ -112,11 +122,13 @@ class Bullet extends Object{
   
   Bullet clone(){
      Bullet clone = new Bullet(this.getspeed(), this.getangle(), this.getdmg(),
-                               this.getatkdly(), this.gethoming(), this.getdirected());
+                               this.getatkdly(), this.gethoming(), this.getdirected(),
+                               this.getrndir());
      clone.sethboxrad(this.gethboxrad());
      clone.sethbox(this.gethbox());
      clone.setxpos(this.getxpos());
      clone.setxpos(this.getypos());
+     clone.setrndir(this.getrndir());
      return clone;  
   }    
   
@@ -126,17 +138,33 @@ class Bullet extends Object{
       return(statement);
   }
   
-  void nspell1_0(){
+  void nspell1_0_0_0(){
       this.setangle(-PI/18);
       this.setdirected(true);
       this.setatkdly(10);
       this.setspeed(2);
   }
   
-  void nspell1_1(){
+  void nspell1_0_0_1(){
       this.setangle( PI/18);
       this.setdirected(true);
-      this.setatkdly(2);
-      this.setspeed(5);
+      this.setatkdly(10);
+      this.setspeed(2);
+  }
+  
+  void nspell1_0_1_0(){
+      this.setangle(-PI/18);
+      this.setdirected(true);
+      this.setatkdly(9000);
+      this.setatkdlyctr(8990);
+      this.setspeed(20);
+  }
+  
+  void nspell1_0_1_1(){
+      this.setangle( PI/18);
+      this.setdirected(true);
+      this.setatkdly(9000);
+      this.setatkdlyctr(8990);
+      this.setspeed(20);
   }
 }
